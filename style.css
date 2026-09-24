@@ -233,17 +233,20 @@ border-bottom: 1px solid var(--border);
 padding-top: 0;
 }
 .article-item h3,
-.activity-item h3 {
+.activity-item h3,
+.timeline-item h3 {
 margin: 0 0 0.3rem;
 font-size: 1.05rem;
 font-weight: 600;
 }
 .article-item h3 a,
-.activity-item h3 a {
+.activity-item h3 a,
+.timeline-item h3 a {
 color: var(--text);
 }
 .article-item h3 a:hover,
-.activity-item h3 a:hover {
+.activity-item h3 a:hover,
+.timeline-item h3 a:hover {
 color: var(--accent);
 text-decoration: none;
 }
@@ -274,14 +277,15 @@ position: relative;
 padding: 0 0 1.5rem 1.25rem;
 }
 .timeline-item::before {
-content: "";
-position: absolute;
-left: -4.5px;
-top: 0.35rem;
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background: var(--accent);
+  content: "";
+  position: absolute;
+  left: -3.5px;
+  top: 0.90rem;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 .timeline-item:last-child {
 padding-bottom: 0;
@@ -307,10 +311,11 @@ font-weight: 600;
 margin: 0.4rem 0 0.5rem;
 font-size: 0.93rem;
 }
-.project-item .links {
-font-size: 0.85rem;
+.links {
+font-size: 1rem;
 display: flex;
-gap: 1rem;
+gap: 1.5rem;
+margin-top: 1rem;
 }
 
 /* Detail views */
