@@ -211,12 +211,12 @@ if (activities.length) {
     var t = activities[0];
     html +=
     '<div class="latest-block">' +
-    '<div class="latest-head"><h3>Aktifitas terbaru</h3><a href="#aktifitas">Lihat semua</a></div>' +
+    '<div class="latest-head"><h3>Aktivitas terbaru</h3><a href="#aktivitas">Lihat semua</a></div>' +
     '<div class="timeline"><div class="timeline-item">' +
     '<span class="meta"><span>' +
     t.date +
     "</span></span>" +
-    '<h3><a href="#aktifitas/' +
+    '<h3><a href="#aktivitas/' +
     t.slug +
     '">' +
     t.title +
@@ -274,19 +274,19 @@ articles.forEach(function (a) {
 document.getElementById("artikel-list").innerHTML = html;
 }
 
-function renderAktifitasList() {
+function renderAktivitasList() {
 var html =
-    '<h2 class="section-title">Aktifitas</h2><p class="page-intro">Catatan singkat tentang apa yang sedang saya kerjakan dari waktu ke waktu.</p><div class="timeline">';
+    '<h2 class="section-title">Aktivitas</h2><p class="page-intro">Catatan singkat tentang apa yang sedang saya kerjakan dari waktu ke waktu.</p><div class="timeline">';
 activities.forEach(function (a) {
     html +=
     '<div class="timeline-item">' +
     '<span class="meta"><span>' +
     a.date +
     "</span></span>" +
-    '<h3><a href="#aktifitas/' +
+    '<h3><a href="#aktivitas/' +
     a.slug +
     '">' +
-    a.title +
+    a.title
     "</a></h3>" +
     "<p>" +
     a.excerpt +
@@ -294,7 +294,7 @@ activities.forEach(function (a) {
     "</div>";
 });
 html += "</div>";
-document.getElementById("aktifitas-list").innerHTML = html;
+document.getElementById("aktivitas-list").innerHTML = html;
 }
 
 /* ================= RENDER: DETAIL VIEWS ================= */
@@ -363,22 +363,22 @@ el.innerHTML =
     shareRowHtml();
 }
 
-function renderAktifitasDetail(slug) {
+function renderAktivitasDetail(slug) {
 var a = activities.filter(function (x) {
     return x.slug === slug;
 })[0];
-var el = document.getElementById("aktifitas-detail");
+var el = document.getElementById("aktivitas-detail");
 if (!a) {
     el.innerHTML =
-    '<p class="page-intro">Aktifitas tidak ditemukan.</p><a class="back-link" href="#aktifitas">&larr; Kembali ke Aktifitas</a>';
+    '<p class="page-intro">Aktivitas tidak ditemukan.</p><a class="back-link" href="#aktivitas">&larr; Kembali ke Aktivitas</a>';
     return;
 }
 window.currentShare = {
-    url: baseUrl() + "#aktifitas/" + a.slug,
+    url: baseUrl() + "#aktivitas/" + a.slug,
     title: a.title,
 };
 el.innerHTML =
-    '<a class="back-link" href="#aktifitas">&larr; Kembali ke Aktifitas</a>' +
+    '<a class="back-link" href="#aktivitas">&larr; Kembali ke Aktivitas</a>' +
     '<h1 class="detail-title">' +
     a.title +
     "</h1>" +
@@ -457,7 +457,7 @@ if (navigator.clipboard) {
 }
 
 /* ================= ROUTING ================= */
-var routes = ["home", "aktifitas", "artikel", "proyek"];
+var routes = ["home", "aktivitas", "artikel", "proyek"];
 function parseHash() {
 var h = (location.hash || "#home").replace("#", "");
 var parts = h.split("/");
@@ -491,19 +491,19 @@ if (section === "artikel") {
     document.getElementById("artikel-list").classList.add("active");
     }
 }
-if (section === "aktifitas") {
+if (section === "aktivitas") {
     if (r.slug) {
-    renderAktifitasDetail(r.slug);
+    renderAktivitasDetail(r.slug);
     document
-        .getElementById("aktifitas-list")
+        .getElementById("aktivitas-list")
         .classList.remove("active");
-    document.getElementById("aktifitas-detail").classList.add("active");
+    document.getElementById("aktivitas-detail").classList.add("active");
     } else {
-    renderAktifitasList();
+    renderAktivitasList();
     document
-        .getElementById("aktifitas-detail")
+        .getElementById("aktivitas-detail")
         .classList.remove("active");
-    document.getElementById("aktifitas-list").classList.add("active");
+    document.getElementById("aktivitas-list").classList.add("active");
     }
 }
 
