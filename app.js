@@ -89,33 +89,45 @@ var activities = [
 ];
 
 var projects = [
-{
+  {
+    slug: "catatan-harga",
     title: "Catatan Harga",
     desc: "Pelacak harga barang e-commerce yang mengirim notifikasi saat harga turun di bawah ambang yang ditentukan pengguna. Dibangun dengan Go dan SQLite.",
+    content:
+      "<p>Proyek ini dibuat untuk membantu memantau pergerakan harga barang di beberapa platform e-commerce secara otomatis.</p><p>Sistem berjalan menggunakan cron job yang secara berkala memeriksa harga, lalu menyimpan riwayatnya ke SQLite dan mengirim notifikasi jika terjadi penurunan harga.</p>",
     tags: ["Go", "SQLite", "cron"],
     links: [
-    { label: "Kode sumber", url: "https://github.com" },
-    { label: "Demo", url: "#" },
+      { label: "Kode sumber", url: "https://github.com" },
+      { label: "Demo", url: "#" },
     ],
-},
-{
+  },
+  {
+    slug: "papan-kanban-ringan",
     title: "Papan Kanban Ringan",
     desc: "Aplikasi papan tugas sederhana tanpa akun, data tersimpan lokal di browser. Dibuat untuk latihan menulis JavaScript murni tanpa framework.",
+    content:
+      "<p>Aplikasi papan tugas interaktif berbasis Vanilla JS tanpa pustaka eksternal.</p><p>Semua status kolom dan kartu disimpan di `localStorage` browser sehingga pengguna tidak perlu membuat akun untuk menggunakannya.</p>",
     tags: ["JavaScript", "localStorage"],
     links: [{ label: "Kode sumber", url: "https://github.com" }],
-},
-{
+  },
+  {
+    slug: "ringkas-peringkas-artikel",
     title: "Ringkas — Peringkas Artikel",
     desc: "Ekstensi browser kecil yang meringkas artikel panjang menjadi beberapa poin utama menggunakan API bahasa.",
+    content:
+      "<p>Ekstensi Google Chrome untuk mengekstrak teks utama dari halaman web dan membuat ringkasan eksekutif secara otomatis.</p>",
     tags: ["Chrome Extension", "API"],
     links: [{ label: "Kode sumber", url: "https://github.com" }],
-},
-{
+  },
+  {
+    slug: "dasbor-anggaran-keluarga",
     title: "Dasbor Anggaran Keluarga",
     desc: "Dasbor sederhana untuk mencatat dan memvisualisasikan pengeluaran bulanan, dipakai sendiri bersama keluarga.",
+    content:
+      "<p>Aplikasi web internal untuk mencatat pemasukan, pengeluaran, serta grafik alokasi anggaran bulanan.</p>",
     tags: ["React", "Chart"],
     links: [{ label: "Tulisan singkat", url: "#" }],
-},
+  },
 ];
 
 /* ================= HELPERS ================= */
@@ -142,41 +154,61 @@ return text ? text.split(/\s+/).length : 0;
 }
 
 function projectLinksHtml(links) {
-return (
+  return (
     '<p class="links">' +
     links
-    .map(function (l) {
+      .map(function (l) {
         return (
-        '<a href="' +
-        l.url +
-        '" target="_blank" rel="noopener">' +
-        l.label +
-        "</a>"
+          '<a href="' +
+          l.url +
+          '" target="_blank" rel="noopener">' +
+          l.label +
+          "</a>"
         );
-    })
-    .join("") +
+      })
+      .join(" ") +
     "</p>"
-);
+  );
 }
 
 /* ================= RENDER: LIST VIEWS ================= */
 function renderProyekList() {
-var html =
+  var html =
     '<h2 class="section-title">Proyek</h2><p class="page-intro">Sebagian proyek pribadi dan proyek kerja yang bisa saya tunjukkan.</p>';
-projects.forEach(function (p) {
+  projects.forEach(function (p) {
     html +=
-    '<div class="project-item">' +
-    "<h3>" +
-    p.title +
-    "</h3>" +
-    '<p class="desc">' +
-    p.desc +
-    "</p>" +
+      '<div class="project-item">' +
+      '<h3><a href="#proyek/' + p.slug + '">' + p.title + '</a></h3>' +
+      '<p class="desc">' + p.desc + '</p>' +
+      tagsHtml(p.tags) +
+      projectLinksHtml(p.links) +
+      '</div>';
+  });
+  document.getElementById("proyek-list").innerHTML = html;
+}
+
+/* ================= RENDER: DETAIL VIEWS ================= */
+function renderProyekDetail(slug) {
+  var p = projects.filter(function (x) {
+    return x.slug === slug;
+  })[0];
+  var el = document.getElementById("proyek-detail");
+  if (!p) {
+    el.innerHTML =
+      '<p class="page-intro">Proyek tidak ditemukan.</p><a class="back-link" href="#proyek">&larr; Kembali ke Proyek</a>';
+    return;
+  }
+  window.currentShare = {
+    url: baseUrl() + "#proyek/" + p.slug,
+    title: p.title,
+  };
+  el.innerHTML =
+    '<a class="back-link" href="#proyek">&larr; Kembali ke Proyek</a>' +
+    '<h1 class="detail-title">' + p.title + '</h1>' +
     tagsHtml(p.tags) +
+    '<div class="detail-content">' + p.content + '</div>' +
     projectLinksHtml(p.links) +
-    "</div>";
-});
-document.getElementById("proyek-list").innerHTML = html;
+    shareRowHtml();
 }
 
 function renderHomeLatest() {
@@ -233,15 +265,11 @@ if (projects.length) {
     '<div class="latest-block">' +
     '<div class="latest-head"><h3>Proyek terbaru</h3><a href="#proyek">Lihat semua</a></div>' +
     '<div class="project-item">' +
-    "<h3>" +
-    p.title +
-    "</h3>" +
-    '<p class="desc">' +
-    p.desc +
-    "</p>" +
+    '<h3><a href="#proyek/' + p.slug + '">' + p.title + '</a></h3>' +
+    '<p class="desc">' + p.desc + '</p>' +
     tagsHtml(p.tags) +
     projectLinksHtml(p.links) +
-    "</div></div>";
+    '</div></div>';
 }
 
 html += "</div>";
@@ -275,26 +303,22 @@ document.getElementById("artikel-list").innerHTML = html;
 }
 
 function renderAktivitasList() {
-var html =
-    '<h2 class="section-title">Aktivitas</h2><p class="page-intro">Catatan singkat tentang apa yang sedang saya kerjakan dari waktu ke waktu.</p><div class="timeline">';
-activities.forEach(function (a) {
+  var html =
+    '<h2 class="section-title">Aktivitas</h2>' +
+    '<p class="page-intro">Catatan singkat tentang apa yang sedang saya kerjakan dari waktu ke waktu.</p>' +
+    '<div class="timeline">';
+
+  activities.forEach(function (a) {
     html +=
-    '<div class="timeline-item">' +
-    '<span class="meta"><span>' +
-    a.date +
-    "</span></span>" +
-    '<h3><a href="#aktivitas/' +
-    a.slug +
-    '">' +
-    a.title
-    "</a></h3>" +
-    "<p>" +
-    a.excerpt +
-    "</p>" +
-    "</div>";
-});
-html += "</div>";
-document.getElementById("aktivitas-list").innerHTML = html;
+      '<div class="timeline-item">' +
+        '<span class="meta"><span>' + a.date + '</span></span>' +
+        '<h3><a href="#aktivitas/' + a.slug + '">' + a.title + '</a></h3>' +
+        '<p>' + a.excerpt + '</p>' +
+      '</div>';
+  });
+
+  html += '</div>';
+  document.getElementById("aktivitas-list").innerHTML = html;
 }
 
 /* ================= RENDER: DETAIL VIEWS ================= */
@@ -508,7 +532,15 @@ if (section === "aktivitas") {
 }
 
 if (section === "proyek") {
+  if (r.slug) {
+    renderProyekDetail(r.slug);
+    document.getElementById("proyek-list").classList.remove("active");
+    document.getElementById("proyek-detail").classList.add("active");
+  } else {
     renderProyekList();
+    document.getElementById("proyek-detail").classList.remove("active");
+    document.getElementById("proyek-list").classList.add("active");
+  }
 }
 
 window.scrollTo(0, 0);
