@@ -223,30 +223,60 @@ font-size: 0.82rem;
 content: " · ";
 }
 
+/* Kontainer Utama */
 .article-item,
-.activity-item {
+.timeline-item,
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+/* Pembungkus Teks (Kiri) */
+.item-body {
+  flex: 1; /* Mengisi sisa ruang di kiri */
+}
+
+/* Gambar (Kanan) */
+.preview-image {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0; /* Mencegah gambar tertekan/gepeng */
+}
+
+.article-item,
+.activity-item,
+.project-item {
 padding: 1.1rem 0;
 border-bottom: 1px solid var(--border);
 }
 .article-item:first-child,
-.activity-item:first-child {
+.activity-item:first-child,
+.project-item:first-child {
 padding-top: 0;
 }
 .article-item h3,
 .activity-item h3,
-.timeline-item h3 {
+.timeline-item h3,
+.project-item h3 {
 margin: 0 0 0.3rem;
 font-size: 1.05rem;
 font-weight: 600;
 }
 .article-item h3 a,
 .activity-item h3 a,
-.timeline-item h3 a {
+.timeline-item h3 a,
+.project-item h3 a {
 color: var(--text);
 }
 .article-item h3 a:hover,
 .activity-item h3 a:hover,
-.timeline-item h3 a:hover {
+.timeline-item h3 a:hover,
+.project-item h3 a:hover {
 color: var(--accent);
 text-decoration: none;
 }

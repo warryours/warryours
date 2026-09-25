@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "Placeholder-project",
+    "image": "https://miro.medium.com/v2/resize:fit:720/format:webp/1*h6PJOhCAWMyTtkeeol-Trg.gif",
+    "title": "Placeholder for Project",
+    "desc": "Placeholder for Project",
+    "filePath": "content/projects/placeholder-project.md",
+    "tags": ["HTML", "Responsive Design"],
+    "links": [
+        { "label": "Repository", "url": "https://github.com" },
+        { "label": "Demo", "url": "#" }
+    ]
+  }
+]
