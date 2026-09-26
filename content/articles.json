@@ -1,7 +1,7 @@
 [
   {
     "slug": "fundamental-html",
-    "image": "https://miro.medium.com/v2/resize:fit:720/format:webp/1*h6PJOhCAWMyTtkeeol-Trg.gif",
+    "image": "https://images.unsplash.com/photo-1669023414162-8b0573b9c6b2?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "title": "Fundamental HTML untuk Responsive Web Development",
     "date": "12 Sep 2026",
     "tags": ["html5", "responsive web design"],
@@ -10,7 +10,7 @@
   },
   {
     "slug": "analisis-data-website-traffic",
-    "image": "https://miro.medium.com/v2/resize:fit:720/format:webp/1*h6PJOhCAWMyTtkeeol-Trg.gif",
+    "image": "https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "title": "Data Analysis Case Study: Trafik Website",
     "date": "28 Jul 2024",
     "tags": ["data", "analytics"],
